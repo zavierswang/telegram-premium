@@ -83,16 +83,15 @@ func (b *Balance) render(ctx context.Context, callback *tgb.CallbackQueryUpdate)
 		_ = callback.Client.SendMessage(chatId, "您的订单已收到，请稍等~").ParseMode(tg.HTML).ReplyMarkup(inlineKeyboard).DoVoid(ctx)
 	}
 	// 群组通知
-	for _, group := range global.App.Config.App.Groups {
-		gid := tg.Username(group)
-		if label == "人工充值" {
-			layout = tg.NewButtonLayout[tg.InlineKeyboardButton](1).Row()
-			layout.Insert(tg.NewInlineKeyboardButtonCallback("✅已处理并通知用户", fmt.Sprintf("manual %d", order.ID)))
-			inlineKeyboard = tg.NewInlineKeyboardMarkup(layout.Keyboard()...)
-			_ = callback.Client.SendMessage(gid, buf.String()).ParseMode(tg.HTML).ReplyMarkup(inlineKeyboard).DoVoid(ctx)
-		} else {
-			_ = callback.Client.SendMessage(gid, buf.String()).ParseMode(tg.HTML).DoVoid(ctx)
-		}
+	gid := tg.Username(global.App.Config.App.Group)
+	if label == "人工充值" {
+		layout = tg.NewButtonLayout[tg.InlineKeyboardButton](1).Row()
+		layout.Insert(tg.NewInlineKeyboardButtonCallback("✅已处理并通知用户", fmt.Sprintf("manual %d", order.ID)))
+		inlineKeyboard = tg.NewInlineKeyboardMarkup(layout.Keyboard()...)
+		_ = callback.Client.SendMessage(gid, buf.String()).ParseMode(tg.HTML).ReplyMarkup(inlineKeyboard).DoVoid(ctx)
+	} else {
+		_ = callback.Client.SendMessage(gid, buf.String()).ParseMode(tg.HTML).DoVoid(ctx)
 	}
+
 	return nil
 }
