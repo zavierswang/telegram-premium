@@ -1,0 +1,32 @@
+app:
+  env: dev                                                                          #运行环境
+  app_name: telegram-premium                                                        #App名称
+  license: ffffffffffffffffffffffffffffffff                                         #授权码
+  support: tg_llama                                                                 #客服ID
+  group: test2_zoom_group                                                           #群组ID
+
+telegram:
+  token: 6323070951:AAaaaaaaaaaaaaaaaaaaaaaaaaaa
+  tron_scan_api_key: ffffffff-ffff-ffff-ffff-ffffffffffff                           #tron apiKey
+  grid_api_key: ffffffff-ffff-ffff-ffff-ffffffffffff                                #grid apiKey
+  alias_key: 1688-TRX-OUT                                                           #私钥别名
+  private_key: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff     #私钥
+  receive_address: ffffffffffffffffffffffffffffffffff                               #收款地址
+  receive_address_icon: ./assets/receive.png                                        #收款码
+  send_address: ffffffffffffffffffffffffffffffffff                                  #出款地址
+  three_month: 15.0                                                                 #3个月套餐金额，平台价12.5
+  six_month: 19.0                                                                   #6个月套餐金额，平台价16.5
+  twelve_month: 38.0                                                                #12个月套餐金额，平台价30.0
+  channel: manual                                                                   #使用平台简称（目前支持manual/tmt）
+  channel_id: fff                                                                   #平台ID
+  channel_key: ffffffffffffffffffffffffffffffff                                     #平台Key
+
+
+db:
+  driver: mysql
+  dsn: root:123456@tcp(127.0.0.1:3306)/premium?charset=utf8mb4&parseTime=True&loc=Local
+  max_idle_conns: 10
+  max_open_conns: 100
+  log_mode: info
+  enable_file_log_writer: true
+  log_filename: sql.log
