@@ -169,7 +169,7 @@ func (p *payment) exec(amount float64, transfer tron.Transfer) {
 		_ = global.App.Client.SendMessage(chatId, buf.String()).ParseMode(tg.HTML).ReplyMarkup(inlineKeyboard).DoVoid(context.Background())
 
 		//群组通知，管理处理
-		groupId := tg.Username(global.App.Config.App.Groups[0])
+		groupId := tg.Username(global.App.Config.App.Group)
 		tmpl, _ = template.ParseFiles(cst.PaymentGroupTemplateFile)
 		tpl = controllers.GiftTmpl{
 			ForUsername: order.ForUsername,
@@ -233,10 +233,8 @@ func (p *payment) exec(amount float64, transfer tron.Transfer) {
 		logger.Info("[scheduler] notice user and groups")
 		_ = global.App.Client.DeleteMessage(chatId, messageId).DoVoid(context.Background())
 		_ = global.App.Client.SendMessage(chatId, buf.String()).ParseMode(tg.HTML).ReplyMarkup(inlineKeyboard).DoVoid(context.Background())
-		for _, group := range global.App.Config.App.Groups {
-			groupId := tg.Username(group)
-			_ = global.App.Client.SendMessage(groupId, buf.String()).ParseMode(tg.HTML).ReplyMarkup(inlineKeyboard).DoVoid(context.Background())
-		}
+		gid := tg.Username(global.App.Config.App.Group)
+		_ = global.App.Client.SendMessage(gid, buf.String()).ParseMode(tg.HTML).ReplyMarkup(inlineKeyboard).DoVoid(context.Background())
 		return
 	}
 }
@@ -281,10 +279,8 @@ func (v *voucher) exec(amount float64, transfer tron.Transfer) {
 	_ = global.App.Client.SendMessage(chatId, buf.String()).ParseMode(tg.HTML).DoVoid(context.Background())
 
 	//群组消息通知
-	for _, group := range global.App.Config.App.Groups {
-		gid := tg.Username(group)
-		_ = global.App.Client.SendMessage(gid, buf.String()).ParseMode(tg.HTML).DoVoid(context.Background())
-	}
+	gid := tg.Username(global.App.Config.App.Group)
+	_ = global.App.Client.SendMessage(gid, buf.String()).ParseMode(tg.HTML).DoVoid(context.Background())
 }
 
 type VoucherTmpl struct {
